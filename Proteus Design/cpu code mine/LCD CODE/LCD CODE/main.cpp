@@ -8,27 +8,11 @@
 #include "D:\GitHub\LCD-Lib-Cplusplus\Proteus Design\LIB\CharacterLCD.h"
 #include "D:\GitHub\LCD-Lib-Cplusplus\Proteus Design\LIB\CharacterLCD.cpp"
 
-const uint8_t LCDwelcomeln2[] PROGMEM="_LCD_LIB_\0";
-
-const uint8_t LCDwelcomeln3[] PROGMEM=" Loading ... \0";
-
 Character_LCD LCD1;
-
-
-
-
-
-	
-	
-
+Character_LCD LCD2;
 
 int main(void)
 {
-	////////////////
-		_delay_ms(100);
-		// Register Summary
-		// Peripheral Module Address Map
-		
 		LCD1.SetRSPin (ADD(PORTA),ADD(DDRA),0);
 		LCD1.SetRWPin (ADD(PORTA),ADD(DDRA),1);
 		LCD1.SetEPin  (ADD(PORTA),ADD(DDRA),7);
@@ -36,24 +20,33 @@ int main(void)
 		LCD1.SetD5Pin (ADD(PORTA),ADD(DDRA),4);
 		LCD1.SetD6Pin (ADD(PORTA),ADD(DDRA),5);
 		LCD1.SetD7Pin (ADD(PORTA),ADD(DDRA),6);
-		LCD1.Init();
+		LCD1.Init(16,2);
 		
-	
-	
+		LCD2.SetRSPin (ADD(PORTA),ADD(DDRA),0);
+		LCD2.SetRWPin (ADD(PORTA),ADD(DDRA),1);
+		LCD2.SetEPin  (ADD(PORTA),ADD(DDRA),2);
+		LCD2.SetD4Pin (ADD(PORTA),ADD(DDRA),3);
+		LCD2.SetD5Pin (ADD(PORTA),ADD(DDRA),4);
+		LCD2.SetD6Pin (ADD(PORTA),ADD(DDRA),5);
+		LCD2.SetD7Pin (ADD(PORTA),ADD(DDRA),6);
+		LCD2.Init(16,4);		
+			
 	////////////////////
-	const uint8_t LCDwelcome[] PROGMEM="wefwefwef\0";
-	char aa =10 ;
-	uint8_t a[3] = {90,51,80} ;
 	while (1)
 	{
 		LCD1.Clr();
-		LCD1.Printf("1001100110011001",0,0,aa);
-		 _delay_ms(1000);
-		 LCD1.Clr();
-		 //LCD1.GotoXY(1,1);LCD1.SendChar(20);
-		 LCD1.SendString_V(a,3);
-		 //LCD1.SendString("Hello Word !  ",1,1);
-		 		 _delay_ms(1000);
+		LCD2.Clr();
+		LCD1.Printf("Bache",0,0);
+		LCD1.Printf("KAKAAAAAAAAA",1,1);
+		LCD1.GotoXY(5,1);
+		//LCD1.SendString("qqqq");
+		//LCD1.SendString("qqqq");
+		
+		LCD2.Printf("TEST",0,0);
+		LCD2.Printf("TEST",1,1);
+		LCD2.Printf("TEST",2,2);
+		LCD2.Printf("TEST",3,3);
+		_delay_ms(1000);
 
 	};
 }

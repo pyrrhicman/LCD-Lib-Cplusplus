@@ -84,8 +84,6 @@ const uint8_t numchar[10][6] PROGMEM =
 	}
 };
 
-const uint8_t _My_String__[] PROGMEM="LCD TEST";
-
 Character_LCD :: Character_LCD ()
 {
 		RS_PORT = 0x1B ; RS_DDR = 0x1A ; RS_Bit = 0 ;
@@ -98,16 +96,19 @@ Character_LCD :: Character_LCD ()
 		D7_PORT = 0x1B ; D7_DDR = 0x1A ; D7_Bit = 6 ;
 		
 }
+
 void Character_LCD :: Clr(void)				//Clears LCD
 {
 	SendCommand(1<<Character_LCD_CLR);
 	_delay_ms(1);
 }
+
 void Character_LCD :: Home(void)			//LCD cursor home
 {
 	SendCommand(1<<Character_LCD_HOME);
 	_delay_ms(1);
 }
+
 void Character_LCD :: SendString_V(uint8_t* data, uint8_t nBytes)	//Outputs string to LCD
 {
 	register uint8_t i;
@@ -118,6 +119,7 @@ void Character_LCD :: SendString_V(uint8_t* data, uint8_t nBytes)	//Outputs stri
 	}
 	_delay_ms(1);
 }
+
 void Character_LCD :: SendString(char *_String , uint8_t PositionX , uint8_t PositionY)
 {
 	GotoXY(PositionX,PositionY);
@@ -126,6 +128,7 @@ void Character_LCD :: SendString(char *_String , uint8_t PositionX , uint8_t Pos
 		SendChar(*_String++ );	
 	}
 }
+
 void Character_LCD :: SendString(char *_String )
 {
 	while(*_String)
@@ -133,6 +136,7 @@ void Character_LCD :: SendString(char *_String )
 		SendChar(*_String++ );
 	}
 }
+
 void Character_LCD :: GotoXY(uint8_t x, uint8_t y)	//Cursor to X Y position
 {
 	register uint8_t DDRAMAddr;
@@ -148,190 +152,7 @@ void Character_LCD :: GotoXY(uint8_t x, uint8_t y)	//Cursor to X Y position
 	_delay_ms(1);
 	
 }
-void Character_LCD :: VariableDec(uint32_t Number, uint8_t x, uint8_t y)
-{
-	uint8_t i=0;
-	uint8_t b;
-	int8_t k[15];
-	GotoXY(x,y);
-	do
-	{
-		b=Number%10;
-		k[i] = 48 +b;
-		Number /= 10;
-		i++;
-	}
-	while (Number != 0);
-	while (i != 0 )
-	{
-		i--;
-		SendChar(k[i]);
-	}
-	_delay_ms(1);
-}
-void Character_LCD :: VariableBin(uint32_t Number, uint8_t x, uint8_t y)
-{
-	uint8_t i=0;
-	uint8_t b;
-	int8_t k[30];
-	GotoXY(x,y);
-	
-	do
-	{
-		b=Number%2;
-		k[i] = 48 +b;
-		Number /= 2;
-		i++;
-	}
-	while (Number != 0);
-	while (i != 0 )
-	{
-		i--;
-		SendChar(k[i]);
-	}
-	_delay_ms(1);
-}
-void Character_LCD :: VariableOct(uint32_t Number, uint8_t x, uint8_t y)
-{
-	uint8_t i=0;
-	uint8_t b;
-	int8_t k[30];
-	GotoXY(x,y);
-	do
-	{
-		b=Number%8;
-		k[i] = 48 + b;
-		Number /= 8;
-		i++;
-	}
-	while (Number != 0);
-	while (i != 0 )
-	{
-		i--;
-		SendChar(k[i]);
-	}
-	_delay_ms(1);
-}
-void Character_LCD :: VariableHex(uint32_t Number, uint8_t x, uint8_t y)
-{
-	uint8_t i=0;
-	uint8_t b;
-	int8_t k[30];
-	GotoXY(x,y);
-	do
-	{
-		b=Number%16;
-		if (b<10)k[i] = 48 + b;
-		else k[i] = 87 + b;
-		Number /= 16;
-		i++;
-	}
-	while (Number != 0);
-	while (i != 0 )
-	{
-		i--;
-		SendChar(k[i]);
-	}
-	_delay_ms(1);
-}
-void Character_LCD :: VariableDec(uint32_t Number, uint8_t length, uint8_t x, uint8_t y)
-{
-	uint8_t i=0;
-	uint8_t b;
-	int8_t k[16];
-	while(i<16){k[i]=48;i++;}
-	i=0;
-	GotoXY(x,y);
-	do
-	{
-		b=Number%10;
-		k[i] = 48 +b;
-		Number /= 10;
-		i++;
-	}
-	while (Number != 0);
-	i=length;
-	while (i != 0 )
-	{
-		i--;
-		SendChar(k[i]);
-	}
-	_delay_ms(1);
-}
-void Character_LCD :: VariableBin(uint32_t Number, uint8_t length, uint8_t x, uint8_t y)
-{
-	uint8_t i=0;
-	uint8_t b;
-	int8_t k[30];
-	while(i<16){k[i]=48;i++;}
-	i=0;
-	GotoXY(x,y);
-	
-	do
-	{
-		b=Number%2;
-		k[i] = 48 +b;
-		Number /= 2;
-		i++;
-	}
-	while (Number != 0);
-	i=length;
-	while (i != 0 )
-	{
-		i--;
-		SendChar(k[i]);
-	}
-	_delay_ms(1);
-}
-void Character_LCD :: VariableOct(uint32_t Number, uint8_t length, uint8_t x, uint8_t y)
-{
-	uint8_t i=0;
-	uint8_t b;
-	int8_t k[30];
-	while(i<16){k[i]=48;i++;}
-	i=0;
-	GotoXY(x,y);
-	do
-	{
-		b=Number%8;
-		k[i] = 48 + b;
-		Number /= 8;
-		i++;
-	}
-	while (Number != 0);
-	i=length;
-	while (i != 0 )
-	{
-		i--;
-		SendChar(k[i]);
-	}
-	_delay_ms(1);
-}
-void Character_LCD :: VariableHex(uint32_t Number, uint8_t length, uint8_t x, uint8_t y)
-{
-	uint8_t i=0;
-	uint8_t b;
-	int8_t k[30];
-	while(i<16){k[i]=48;i++;}
-	i=0;
-	GotoXY(x,y);
-	do
-	{
-		b=Number%16;
-		if (b<10)k[i] = 48 + b;
-		else k[i] = 87 + b;
-		Number /= 16;
-		i++;
-	}
-	while (Number != 0);
-	i=length;
-	while (i != 0 )
-	{
-		i--;
-		SendChar(k[i]);
-	}
-	_delay_ms(1);
-}
+
 void Character_LCD :: ShiftLeft(uint8_t n)	//Scrol n of characters Right
 {
 	for (uint8_t i=0;i<n;i++)
@@ -340,6 +161,7 @@ void Character_LCD :: ShiftLeft(uint8_t n)	//Scrol n of characters Right
 	}
 	_delay_ms(1);
 }
+
 void Character_LCD :: ShiftRight(uint8_t n)	//Scrol n of characters Left
 {
 	for (uint8_t i=0;i<n;i++)
@@ -348,31 +170,37 @@ void Character_LCD :: ShiftRight(uint8_t n)	//Scrol n of characters Left
 	}
 	_delay_ms(1);
 }
+
 void Character_LCD :: CursorOn(void) //displays LCD cursor
 {
 	SendCommand(0x0E);
 	_delay_ms(1);
 }
+
 void Character_LCD :: CursorOnBlink(void)	//displays LCD blinking cursor
 {
 	SendCommand(0x0F);
 	_delay_ms(1);
 }
+
 void Character_LCD :: CursorOFF(void)	//turns OFF cursor
 {
 	SendCommand(0x0C);
 	_delay_ms(1);
 }
+
 void Character_LCD :: Blank(void)		//blanks LCD
 {
 	SendCommand(0x08);
 	_delay_ms(1);
 }
+
 void Character_LCD :: Visible(void)		//Shows LCD
 {
 	SendCommand(0x0C);
 	_delay_ms(1);
 }
+
 void Character_LCD :: CursorLeft(uint8_t n)	//Moves cursor by n poisitions left
 {
 	for (uint8_t i=0;i<n;i++)
@@ -381,6 +209,7 @@ void Character_LCD :: CursorLeft(uint8_t n)	//Moves cursor by n poisitions left
 	}
 	_delay_ms(1);
 }
+
 void Character_LCD :: CursorRight(uint8_t n)	//Moves cursor by n poisitions left
 {
 	for (uint8_t i=0;i<n;i++)
@@ -389,6 +218,7 @@ void Character_LCD :: CursorRight(uint8_t n)	//Moves cursor by n poisitions left
 	}
 	_delay_ms(1);
 }
+
 void Character_LCD :: SendChar(uint8_t ch)		//Sends Char to LCD
 {
 	if ((ch&0b00010000)==0)
@@ -439,6 +269,7 @@ void Character_LCD :: SendChar(uint8_t ch)		//Sends Char to LCD
 	_SFR_IO8(RS_PORT)&=~(1<<RS_Bit);
 	_delay_ms(1);
 }
+
 void Character_LCD :: SendCommand(uint8_t cmd)	//Sends Command to LCD
 {
 	if ((cmd&0b00010000)==0)_SFR_IO8(D4_PORT) &= ~(1<<D4_Bit) ;
@@ -469,6 +300,7 @@ void Character_LCD :: SendCommand(uint8_t cmd)	//Sends Command to LCD
 	_SFR_IO8(E_PORT)&=~(1<<E_Bit);
 	_delay_ms(1);
 }
+
 void Character_LCD :: Definechar(const uint8_t *pc,uint8_t char_code){
 	uint8_t a = 0 , pcc = 0 ;
 	uint16_t i;
@@ -482,7 +314,8 @@ void Character_LCD :: Definechar(const uint8_t *pc,uint8_t char_code){
 	}
 	_delay_ms(1);
 }
-void Character_LCD :: Init(void)//Initializes LCD
+
+void Character_LCD :: Init(uint8_t x, uint8_t y)//Initializes LCD
 {
 	_delay_ms(15);
 
@@ -519,70 +352,8 @@ void Character_LCD :: Init(void)//Initializes LCD
 	SendCommand(40);
 	SendCommand(12);
 	Clr();
-	CopyString(_My_String__, 0, 0);
-	_delay_ms(1000);
 }
-void Character_LCD :: Init(Mode_Character_LCD Mode)//Initializes LCD
-{
-	uint8_t chn ;
-	_delay_ms(15);
 
-	_SFR_IO8(D4_PORT) &= ~(1<<D4_Bit) ;_SFR_IO8(D5_PORT) &= ~(1<<D5_Bit) ;_SFR_IO8(D6_PORT) &= ~(1<<D6_Bit) ;_SFR_IO8(D7_PORT) &= ~(1<<D7_Bit) ;
-	_SFR_IO8(E_PORT) &= ~(1<<E_Bit);
-	_SFR_IO8(D4_DDR) |= 1<<D4_Bit ;_SFR_IO8(D5_DDR) |= 1<<D5_Bit ;_SFR_IO8(D6_DDR) |= 1<<D6_Bit ;_SFR_IO8(D7_DDR) |= 1<<D7_Bit ;
-	_SFR_IO8(E_DDR)|=(1<<E_Bit);
-	_SFR_IO8(RS_DDR)|=(1<<RS_Bit);_SFR_IO8(RW_DDR)|=(1<<RW_Bit);
-	_SFR_IO8(D4_PORT) |= 1<<D4_Bit ;_SFR_IO8(D5_PORT) |= 1<<D5_Bit ;_SFR_IO8(D6_PORT) &= ~(1<<D6_Bit) ;_SFR_IO8(D7_PORT) &= ~(1<<D7_Bit) ;
-	_SFR_IO8(E_PORT)|=(1<<E_Bit);
-	_SFR_IO8(RS_PORT) &= ~(1<<RS_Bit);_SFR_IO8(RW_PORT) &= ~(1<<RW_Bit);
-	
-	_delay_ms(1);
-	_SFR_IO8(E_PORT)&=~(1<<E_Bit);
-	
-	_delay_ms(1);
-	_SFR_IO8(D4_PORT) |= 1<<D4_Bit ;_SFR_IO8(D5_PORT) |= 1<<D5_Bit ;_SFR_IO8(D6_PORT) &= ~(1<<D6_Bit) ;_SFR_IO8(D7_PORT) &= ~(1<<D7_Bit) ;
-	_SFR_IO8(E_PORT)|=(1<<E_Bit);
-	_SFR_IO8(RS_PORT) &= ~(1<<RS_Bit);_SFR_IO8(RW_PORT) &= ~(1<<RW_Bit);
-	
-	_delay_ms(1);
-	_SFR_IO8(E_PORT)&=~(1<<E_Bit);
-	
-	_delay_ms(1);
-	_SFR_IO8(D4_PORT) &= ~(1<<D4_Bit) ;_SFR_IO8(D5_PORT) |= 1<<D5_Bit ;_SFR_IO8(D6_PORT) &= ~(1<<D6_Bit) ;_SFR_IO8(D7_PORT) &= ~(1<<D7_Bit) ;
-	
-	_SFR_IO8(E_PORT)|=(1<<E_Bit);
-	_SFR_IO8(RS_PORT) &= ~(1<<RS_Bit);_SFR_IO8(RW_PORT) &= ~(1<<RW_Bit);
-
-
-	_delay_ms(1);
-	_SFR_IO8(E_PORT)&=~(1<<E_Bit);
-	_delay_ms(1);
-	SendCommand(40);
-	SendCommand(12);
-	if (Mode == Big_Number_Mode )
-	{
-		chn=0;
-		while(chn<8)
-		{
-			
-			Definechar((LCD_Big_Number+(chn*8)),chn);
-			chn++;
-		}
-	}
-	else if (Mode == ProgressBar_Mode )
-	{
-		chn=0;
-		while(chn<8)
-		{
-		
-			Definechar((LcdCustomChar+(chn*8)),chn);
-			chn++;
-		}
-	}
-	Clr();
-	CopyString(_My_String__, 0, 0);
-	_delay_ms(1000);
-}
 void Character_LCD :: CopyString(const uint8_t *FlashLoc, uint8_t x, uint8_t y)
 {
 	uint8_t i;
@@ -593,159 +364,7 @@ void Character_LCD :: CopyString(const uint8_t *FlashLoc, uint8_t x, uint8_t y)
 	}
 	_delay_ms(1);
 }
-void Character_LCD :: ProgressBar(uint8_t progress, uint8_t maxprogress, uint8_t length,uint8_t x, uint8_t y)
-{
-	uint8_t i;
-	uint16_t pixelprogress;
-	uint8_t c;
-	GotoXY(x,y);
-	pixelprogress = ((progress*(length*PROGRESSPIXELS_PER_CHAR))/maxprogress);
-	for(i=0; i<length; i++)
-	{
-		if( ((i*(uint16_t)PROGRESSPIXELS_PER_CHAR)+5) > pixelprogress )
-		if( ((i*(uint16_t)PROGRESSPIXELS_PER_CHAR)) > pixelprogress )
-		c = 0;
-		else
-		c = pixelprogress % PROGRESSPIXELS_PER_CHAR;
-		else
-		c = 5;
-		
-		
-		SendChar(c);
-	}
-	_delay_ms(1);
-}
-void Character_LCD :: BigNumber(uint8_t Number, uint8_t x , uint8_t y)
-{
-	if (Number > 9) return ;
-	GotoXY(x,y);
-	if (Number == 0 )
-	{
-		SendChar (XXC);
-		SendChar (ULC);
-		SendChar (XXC);
-		GotoXY(x,y+1);
-		SendChar (XXC);
-		SendChar (LLC);
-		SendChar (XXC);
-	}
-	else if (Number == 1 )
-	{
-		SendChar (ULC);
-		SendChar (XXC);
-		SendChar (SSC);
-		GotoXY(x,y+1);
-		SendChar (LLC);
-		SendChar (XXC);
-		SendChar (LLC);
-	}
-	
-	else if (Number == 2 )
-	{
-		SendChar (ULC);
-		SendChar (BLC);
-		SendChar (XXC);
-		GotoXY(x,y+1);
-		SendChar (XXC);
-		SendChar (LLC);
-		SendChar (LLC);
-	}
-	else if (Number == 3 )
-	{
-		SendChar (ULC);
-		SendChar (BLC);
-		SendChar (XXC);
-		GotoXY(x,y+1);
-		SendChar (LLC);
-		SendChar (LLC);
-		SendChar (XXC);
-	}
-	else if (Number == 4 )
-	{
-		SendChar (XXC);
-		SendChar (LLC);
-		SendChar (XXC);
-		GotoXY(x,y+1);
-		SendChar (SSC);
-		SendChar (SSC);
-		SendChar (XXC);
-	}
-	else if (Number == 5 )
-	{
-		SendChar (XXC);
-		SendChar (BLC);
-		SendChar (ULC);
-		GotoXY(x,y+1);
-		SendChar (LLC);
-		SendChar (LLC);
-		SendChar (XXC);
-	}
-	else if (Number == 6 )
-	{
-		SendChar (XXC);
-		SendChar (BLC);
-		SendChar (ULC);
-		GotoXY(x,y+1);
-		SendChar (XXC);
-		SendChar (LLC);
-		SendChar (XXC);
-	}
-	else if (Number == 7 )
-	{
-		SendChar (ULC);
-		SendChar (ULC);
-		SendChar (XXC);
-		GotoXY(x,y+1);
-		SendChar (SSC);
-		SendChar (SSC);
-		SendChar (XXC);
-	}
 
-	else if (Number == 8 )
-	{
-		SendChar (XXC);
-		SendChar (BLC);
-		SendChar (XXC);
-		GotoXY(x,y+1);
-		SendChar (XXC);
-		SendChar (LLC);
-		SendChar (XXC);
-	}
-
-	else if (Number == 9 )
-	{
-		SendChar (XXC);
-		SendChar (BLC);
-		SendChar (XXC);
-		GotoXY(x,y+1);
-		SendChar (LLC);
-		SendChar (LLC);
-		SendChar (XXC);
-	}
-
-}
-void Character_LCD :: BigVariable(uint32_t Number, uint8_t x, uint8_t y)
-{
-	uint8_t i=0;
-	uint8_t b,x1;
-	uint8_t k[15];
-	x1 = x ;
-	do
-	{
-		b=Number%10;
-		k[i] = b;
-		Number /= 10;
-		i++;
-	}
-	while (Number != 0);
-	while (i != 0 )
-	{
-		i--;
-		BigNumber(k[i],x1,y);
-		x1 = x1 + 4 ;
-	}
-	_delay_ms(1);
-}
 void Character_LCD :: Number(uint8_t v_numericSystem_u8, uint32_t v_number_u32, uint8_t v_numOfDigits)
 {
     uint8_t i=0,a[10];
@@ -810,6 +429,7 @@ void Character_LCD :: Number(uint8_t v_numericSystem_u8, uint32_t v_number_u32, 
 
 
 }
+
 void Character_LCD :: FloatNumber(float v_floatNumber_f32)
 {
 	uint32_t v_tempNumber_u32;
@@ -828,6 +448,7 @@ void Character_LCD :: FloatNumber(float v_floatNumber_f32)
 	v_tempNumber_u32 = v_floatNumber_f32 * 1000000;
 	Number(10u,v_tempNumber_u32,0xffu);
 }
+
 
 /***************************************************************************************************
             void Printf(const char *argList, ...)
@@ -1006,3 +627,8 @@ void Character_LCD :: Printf(const char *argList , uint8_t x, uint8_t y , ... )
 
 
 # endif
+
+
+
+
+

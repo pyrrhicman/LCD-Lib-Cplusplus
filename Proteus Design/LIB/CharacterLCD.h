@@ -92,13 +92,12 @@
 
 #if Version_CHARACTER_LCD_LIB >= 04060200
 
-	enum Mode_Character_LCD {None_Mode,ProgressBar_Mode,Big_Number_Mode};
+	enum Mode_Character_LCD {None_Mode};
 
 #else
 
 	#define None_Mode						0
-	#define ProgressBar_Mode				1
-	#define Big_Number_Mode					2
+
 
 #endif
 
@@ -140,43 +139,39 @@ class Character_LCD
 			
 	void SendChar(uint8_t);										//forms data ready to send to 74HC164
 	void SendCommand(uint8_t);									//forms data ready to send to 74HC164
-	void Init(void);											//Initializes LCD
-	void Init(Mode_Character_LCD Mode);							//Initializes LCD
+	void Definechar(const uint8_t *,uint8_t);					//write char to LCD CGRAM
+	
+	
+	void Init(uint8_t x, uint8_t y);							//Initializes LCD
 	void Clr(void);												//Clears LCD
 	void Home(void);											//LCD cursor home
+	void GotoXY(uint8_t, uint8_t);								//Cursor to X Y position
+
+	
 	void SendString_V(uint8_t*, uint8_t);						//Outputs string to LCD
 	void SendString(char *_String , uint8_t PositionX , uint8_t PositionY);
 	void SendString(char *_String);
-	void GotoXY(uint8_t, uint8_t);								//Cursor to X Y position
 	void CopyString(const uint8_t*, uint8_t, uint8_t);			//copies flash string to LCD at x,y
-	void Definechar(const uint8_t *,uint8_t);					//write char to LCD CGRAM
+	void Printf(const char *argList , uint8_t x, uint8_t y , ... );
+	
+	
+	
 	void ShiftRight(uint8_t);									//shift by n characters Right
 	void ShiftLeft(uint8_t);									//shift by n characters Left
+	
 	void CursorOn(void);										//Underline cursor ON
 	void CursorOnBlink(void);									//Underline blinking cursor ON
 	void CursorOFF(void);										//Cursor OFF
+	
 	void Blank(void);											//LCD blank but not cleared
 	void Visible(void);											//LCD visible
+	
 	void CursorLeft(uint8_t);									//Shift cursor left by n
 	void CursorRight(uint8_t);									//shift cursor right by n
 	
-	// توابع افزوده شده برای کاربرد راحتر کاربران
-	void VariableDec(uint32_t Number, uint8_t x, uint8_t y);
-	void VariableBin(uint32_t Number, uint8_t x, uint8_t y);
-	void VariableHex(uint32_t Number, uint8_t x, uint8_t y);
-	void VariableOct(uint32_t Number, uint8_t x, uint8_t y);
-	void VariableDec(uint32_t Number, uint8_t length, uint8_t x, uint8_t y);
-	void VariableBin(uint32_t Number, uint8_t length, uint8_t x, uint8_t y);
-	void VariableOct(uint32_t Number, uint8_t length, uint8_t x, uint8_t y);
-	void VariableHex(uint32_t Number, uint8_t length, uint8_t x, uint8_t y);
-	
-	void ProgressBar(uint8_t progress, uint8_t maxprogress, uint8_t length,uint8_t x, uint8_t y);//Create Progress Bar
-	void BigNumber(uint8_t Number, uint8_t x , uint8_t y);
-	void BigVariable(uint32_t Number, uint8_t x, uint8_t y);
-	
 	void Number(uint8_t v_numericSystem_u8, uint32_t v_number_u32, uint8_t v_numOfDigits);
 	void FloatNumber(float v_floatNumber_f32);
-	void Printf(const char *argList , uint8_t x, uint8_t y , ... );
+	
 	
 	private:
 	
