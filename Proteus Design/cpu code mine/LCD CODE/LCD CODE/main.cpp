@@ -1,9 +1,9 @@
 
 #include <avr/io.h>
 //ATMEGA32
-# define F_CPU 8000000UL
+#define F_CPU 8000000UL
 
-# define _LCD_LIB_
+#define _LCD_LIB_
 
 #include "D:\GitHub\LCD-Lib-Cplusplus\Proteus Design\LIB\CharacterLCD.h"
 #include "D:\GitHub\LCD-Lib-Cplusplus\Proteus Design\LIB\CharacterLCD.cpp"
@@ -31,16 +31,14 @@ int main(void)
 		LCD2.SetD7Pin (ADD(PORTA),ADD(DDRA),6);
 		LCD2.Init(16,4);		
 			
-	////////////////////
 	while (1)
 	{
 		LCD1.Clr();
 		LCD2.Clr();
 		LCD1.Printf("Bache",0,0);
-		LCD1.Printf("KAKAAAAAAAAA",1,1);
-		LCD1.GotoXY(5,1);
-		//LCD1.SendString("qqqq");
-		//LCD1.SendString("qqqq");
+		LCD1.Printf("KAKAA",1,1);
+		LCD1.GotoXY(8,1);
+		LCD1.SendString("qqqq");
 		
 		LCD2.Printf("TEST",0,0);
 		LCD2.Printf("TEST",1,1);
