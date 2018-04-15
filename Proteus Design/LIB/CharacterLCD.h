@@ -28,9 +28,9 @@
 //
 //*****************************************************************************
 
-# ifndef _AtmelStudio_com_
-#  warning "Not define _AtmelStudio_com_ . Please define ! "
-# define _AtmelStudio_com_
+# ifndef _LCD_LIB_
+#  warning "Not define _LCD_LIB_ . Please define ! "
+# define _LCD_LIB_
 # endif
 
 #ifndef CHARACTER_LCD_LIB_CPP

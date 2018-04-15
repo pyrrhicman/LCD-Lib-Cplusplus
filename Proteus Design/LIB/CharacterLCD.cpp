@@ -1,7 +1,7 @@
 
 #include "CharacterLCD.h"
 
-# ifdef _AtmelStudio_com_
+# ifdef _LCD_LIB_
 
 const uint8_t LcdCustomChar[] PROGMEM=//define 8 custom LCD chars
 {
@@ -84,7 +84,7 @@ const uint8_t numchar[10][6] PROGMEM =
 	}
 };
 
-const uint8_t _AtmelStudio_com__[] PROGMEM="AtmelStudio.com\0";
+const uint8_t _My_String__[] PROGMEM="LCD TEST";
 
 Character_LCD :: Character_LCD ()
 {
@@ -519,7 +519,7 @@ void Character_LCD :: Init(void)//Initializes LCD
 	SendCommand(40);
 	SendCommand(12);
 	Clr();
-	CopyString(_AtmelStudio_com__, 0, 0);
+	CopyString(_My_String__, 0, 0);
 	_delay_ms(1000);
 }
 void Character_LCD :: Init(Mode_Character_LCD Mode)//Initializes LCD
@@ -580,7 +580,7 @@ void Character_LCD :: Init(Mode_Character_LCD Mode)//Initializes LCD
 		}
 	}
 	Clr();
-	CopyString(_AtmelStudio_com__, 0, 0);
+	CopyString(_My_String__, 0, 0);
 	_delay_ms(1000);
 }
 void Character_LCD :: CopyString(const uint8_t *FlashLoc, uint8_t x, uint8_t y)
