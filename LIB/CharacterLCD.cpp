@@ -516,7 +516,6 @@ void Character_LCD :: Printf(const char *argList , uint8_t x, uint8_t y , ... )
 
 
 	va_start(argp, argList);
-
 	// Loop through the list to extract all the input arguments 
 	for(ptr = argList; *ptr != '\0'; ptr++)
 	{
