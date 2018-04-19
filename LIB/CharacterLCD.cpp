@@ -1,6 +1,5 @@
 
 #include "CharacterLCD.h"
-
 # ifdef _LCD_LIB_
 
 const uint8_t LcdCustomChar[] PROGMEM=//define 8 custom LCD chars
@@ -152,6 +151,7 @@ void Character_LCD :: GotoXY(uint8_t x, uint8_t y)	//Cursor to X Y position
 	_delay_ms(1);
 	
 }
+
 
 void Character_LCD :: ShiftLeft(uint8_t n)	//Scrol n of characters Right
 {
@@ -449,6 +449,21 @@ void Character_LCD :: FloatNumber(float v_floatNumber_f32)
 	Number(10u,v_tempNumber_u32,0xffu);
 }
 
+void Character_LCD :: INTNumber(float v_floatNumber_f32)
+{
+	uint32_t v_tempNumber_u32;
+	/* Dirty hack to support the floating point by extracting the integer and fractional part.
+      1.Type cast the number to int to get the integer part.
+	  2.transmit the extracted integer part followed by a decimal point(.).
+	  3.Later the integer part is made zero by subtracting with the extracted integer value.
+	  4.Finally the fractional part is multiplied by 100000 to support 6-digit precision */
+
+	v_tempNumber_u32 = (uint32_t) v_floatNumber_f32;
+	Number(10u,v_tempNumber_u32,0xffu);
+}
+
+
+
 
 /***************************************************************************************************
             void Printf(const char *argList, ...)
@@ -501,7 +516,6 @@ void Character_LCD :: Printf(const char *argList , uint8_t x, uint8_t y , ... )
 
 
 	va_start(argp, argList);
-
 	// Loop through the list to extract all the input arguments 
 	for(ptr = argList; *ptr != '\0'; ptr++)
 	{

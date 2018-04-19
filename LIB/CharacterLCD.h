@@ -146,7 +146,6 @@ class Character_LCD
 	void Clr(void);												//Clears LCD
 	void Home(void);											//LCD cursor home
 	void GotoXY(uint8_t, uint8_t);								//Cursor to X Y position
-
 	
 	void SendString_V(uint8_t*, uint8_t);						//Outputs string to LCD
 	void SendString(char *_String , uint8_t PositionX , uint8_t PositionY);
@@ -171,7 +170,7 @@ class Character_LCD
 	
 	void Number(uint8_t v_numericSystem_u8, uint32_t v_number_u32, uint8_t v_numOfDigits);
 	void FloatNumber(float v_floatNumber_f32);
-	
+	void INTNumber(float v_floatNumber_f32);
 	
 	private:
 	

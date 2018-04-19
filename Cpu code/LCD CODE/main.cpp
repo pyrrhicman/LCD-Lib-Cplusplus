@@ -5,8 +5,8 @@
 
 #define _LCD_LIB_
 
-#include "D:\GitHub\LCD-Lib-Cplusplus\Proteus Design\LIB\CharacterLCD.h"
-#include "D:\GitHub\LCD-Lib-Cplusplus\Proteus Design\LIB\CharacterLCD.cpp"
+#include "D:\GitHub\LCD-Lib-Cplusplus\LIB\CharacterLCD.h"
+#include "D:\GitHub\LCD-Lib-Cplusplus\LIB\CharacterLCD.cpp"
 
 Character_LCD LCD1;
 Character_LCD LCD2;
