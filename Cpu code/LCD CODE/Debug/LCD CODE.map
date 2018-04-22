@@ -74,6 +74,8 @@ Discarded input sections
                 0x00000000       0x62 main.o
  .text._ZN13Character_LCD10CopyStringEPKhhh
                 0x00000000       0x54 main.o
+ .text._ZN13Character_LCD9INTNumberEf
+                0x00000000       0x26 main.o
  .text          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(addsf3.o)
  .data          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(addsf3.o)
  .bss           0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(addsf3.o)
@@ -626,42 +628,42 @@ END GROUP
 .debug_sfnames
  *(.debug_sfnames)
 
-.debug_aranges  0x00000000       0xe8
+.debug_aranges  0x00000000       0xf0
  *(.debug_aranges)
  .debug_aranges
-                0x00000000       0xe8 main.o
+                0x00000000       0xf0 main.o
 
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x2646
+.debug_info     0x00000000     0x26d3
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0x4e6 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.150/gcc/dev/atmega32/avr5/crtatmega32.o
- .debug_info    0x000004e6     0x2160 main.o
+ .debug_info    0x000004e6     0x21ed main.o
 
 .debug_abbrev   0x00000000      0x87d
  *(.debug_abbrev)
  .debug_abbrev  0x00000000      0x4a3 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.150/gcc/dev/atmega32/avr5/crtatmega32.o
  .debug_abbrev  0x000004a3      0x3da main.o
 
-.debug_line     0x00000000      0xd35
+.debug_line     0x00000000      0xd52
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x115 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.150/gcc/dev/atmega32/avr5/crtatmega32.o
- .debug_line    0x00000115      0xc20 main.o
+ .debug_line    0x00000115      0xc3d main.o
 
-.debug_frame    0x00000000      0x3f8
+.debug_frame    0x00000000      0x418
  *(.debug_frame)
- .debug_frame   0x00000000      0x3f8 main.o
+ .debug_frame   0x00000000      0x418 main.o
 
-.debug_str      0x00000000      0xb79
+.debug_str      0x00000000      0xba2
  *(.debug_str)
  .debug_str     0x00000000      0x196 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.150/gcc/dev/atmega32/avr5/crtatmega32.o
- .debug_str     0x00000196      0x9e3 main.o
-                                0xa42 (size before relaxing)
+ .debug_str     0x00000196      0xa0c main.o
+                                0xa6b (size before relaxing)
 
-.debug_loc      0x00000000     0x20f8
+.debug_loc      0x00000000     0x21c2
  *(.debug_loc)
- .debug_loc     0x00000000     0x20f8 main.o
+ .debug_loc     0x00000000     0x21c2 main.o
 
 .debug_macinfo
  *(.debug_macinfo)
@@ -681,9 +683,9 @@ END GROUP
 .debug_pubtypes
  *(.debug_pubtypes)
 
-.debug_ranges   0x00000000       0xf0
+.debug_ranges   0x00000000       0xf8
  *(.debug_ranges)
- .debug_ranges  0x00000000       0xf0 main.o
+ .debug_ranges  0x00000000       0xf8 main.o
 
 .debug_macro
  *(.debug_macro)
