@@ -238,7 +238,7 @@ void Character_LCD :: SendChar(uint8_t ch)		//Sends Char to LCD
 	else
 	_SFR_IO8(D7_PORT) |= 1<<D7_Bit ;
 	
-	_SFR_IO8(RS_PORT)|=1<<RS_Bit;
+	_SFR_IO8(RS_PORT)|= 1<<RS_Bit;
 	_SFR_IO8(E_PORT) |= 1<<E_Bit;
 	_delay_ms(1);
 	_SFR_IO8(E_PORT)&=~(1<<E_Bit);
