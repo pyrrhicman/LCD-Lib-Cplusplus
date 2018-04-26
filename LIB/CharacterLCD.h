@@ -142,7 +142,7 @@ class Character_LCD
 	void Definechar(const uint8_t *,uint8_t);					//write char to LCD CGRAM
 	
 	
-	void Init(uint8_t x, uint8_t y);							//Initializes LCD
+	void Init();							//Initializes LCD
 	void Clr(void);												//Clears LCD
 	void Home(void);											//LCD cursor home
 	void GotoXY(uint8_t, uint8_t);								//Cursor to X Y position

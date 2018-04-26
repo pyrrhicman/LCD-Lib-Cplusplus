@@ -20,7 +20,7 @@ int main(void)
 		LCD1.SetD5Pin (ADD(PORTA),ADD(DDRA),4);
 		LCD1.SetD6Pin (ADD(PORTA),ADD(DDRA),5);
 		LCD1.SetD7Pin (ADD(PORTA),ADD(DDRA),6);
-		LCD1.Init(16,2);
+		LCD1.Init();
 		
 		LCD2.SetRSPin (ADD(PORTA),ADD(DDRA),0);
 		LCD2.SetRWPin (ADD(PORTA),ADD(DDRA),1);
@@ -29,7 +29,7 @@ int main(void)
 		LCD2.SetD5Pin (ADD(PORTA),ADD(DDRA),4);
 		LCD2.SetD6Pin (ADD(PORTA),ADD(DDRA),5);
 		LCD2.SetD7Pin (ADD(PORTA),ADD(DDRA),6);
-		LCD2.Init(16,4);		
+		LCD2.Init();		
 			
 	while (1)
 	{

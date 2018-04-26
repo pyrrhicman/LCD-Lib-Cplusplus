@@ -13,21 +13,21 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY
   4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00001770  2**2
                   CONTENTS, READONLY
-  5 .debug_aranges 000000e8  00000000  00000000  000017ac  2**0
+  5 .debug_aranges 000000f0  00000000  00000000  000017ac  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   00002646  00000000  00000000  00001894  2**0
+  6 .debug_info   000026d3  00000000  00000000  0000189c  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 0000087d  00000000  00000000  00003eda  2**0
+  7 .debug_abbrev 0000087d  00000000  00000000  00003f6f  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   00000d35  00000000  00000000  00004757  2**0
+  8 .debug_line   00000d52  00000000  00000000  000047ec  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  000003f8  00000000  00000000  0000548c  2**2
+  9 .debug_frame  00000418  00000000  00000000  00005540  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    00000b79  00000000  00000000  00005884  2**0
+ 10 .debug_str    00000ba2  00000000  00000000  00005958  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    000020f8  00000000  00000000  000063fd  2**0
+ 11 .debug_loc    000021c2  00000000  00000000  000064fa  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 000000f0  00000000  00000000  000084f5  2**0
+ 12 .debug_ranges 000000f8  00000000  00000000  000086bc  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -279,11 +279,11 @@ Disassembly of section .text:
      1f6:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
 
 000001fa <_ZN13Character_LCDC1Ev>:
-	for(i=0;(uint8_t)pgm_read_byte(&FlashLoc[i]);i++)
-	{
-		SendChar((uint8_t)pgm_read_byte(&FlashLoc[i]));
-	}
-	_delay_ms(1);
+	  3.Later the integer part is made zero by subtracting with the extracted integer value.
+	  4.Finally the fractional part is multiplied by 100000 to support 6-digit precision */
+
+	v_tempNumber_u32 = (uint32_t) v_floatNumber_f32;
+	Number(10u,v_tempNumber_u32,0xffu);
 }
      1fa:	fc 01       	movw	r30, r24
      1fc:	9b e1       	ldi	r25, 0x1B	; 27
@@ -1729,9 +1729,6 @@ Disassembly of section .text:
      d30:	08 95       	ret
 
 00000d32 <_ZN13Character_LCD6NumberEhmh>:
-
-void Character_LCD :: Number(uint8_t v_numericSystem_u8, uint32_t v_number_u32, uint8_t v_numOfDigits)
-{
      d32:	2f 92       	push	r2
      d34:	3f 92       	push	r3
      d36:	4f 92       	push	r4
@@ -1762,22 +1759,12 @@ void Character_LCD :: Number(uint8_t v_numericSystem_u8, uint32_t v_number_u32, 
      d68:	66 2e       	mov	r6, r22
      d6a:	69 01       	movw	r12, r18
      d6c:	7a 01       	movw	r14, r20
-    uint8_t i=0,a[10];
-
-    if(2u == v_numericSystem_u8)
      d6e:	22 e0       	ldi	r18, 0x02	; 2
      d70:	62 13       	cpse	r22, r18
      d72:	26 c0       	rjmp	.+76     	; 0xdc0 <_ZN13Character_LCD6NumberEhmh+0x8e>
-    {
-        while(v_numOfDigits!=0)
      d74:	00 23       	and	r16, r16
      d76:	09 f4       	brne	.+2      	; 0xd7a <_ZN13Character_LCD6NumberEhmh+0x48>
      d78:	76 c0       	rjmp	.+236    	; 0xe66 <_ZN13Character_LCD6NumberEhmh+0x134>
-        {
-            /* Start Extracting the bits from the specified bit positions.
-             Get the Acsii values of the bits and transmit */
-            i = _AS_GetBitStatus(v_number_u32,(v_numOfDigits-1));
-            SendChar(_AS_Dec2Ascii(i));
      d7a:	88 24       	eor	r8, r8
      d7c:	83 94       	inc	r8
      d7e:	91 2c       	mov	r9, r1
@@ -1809,42 +1796,17 @@ void Character_LCD :: Number(uint8_t v_numericSystem_u8, uint32_t v_number_u32, 
      db2:	60 5d       	subi	r22, 0xD0	; 208
      db4:	c5 01       	movw	r24, r10
      db6:	0e 94 1c 01 	call	0x238	; 0x238 <_ZN13Character_LCD8SendCharEh>
-            v_numOfDigits--;
      dba:	01 50       	subi	r16, 0x01	; 1
-{
-    uint8_t i=0,a[10];
-
-    if(2u == v_numericSystem_u8)
-    {
-        while(v_numOfDigits!=0)
      dbc:	19 f7       	brne	.-58     	; 0xd84 <_ZN13Character_LCD6NumberEhmh+0x52>
      dbe:	53 c0       	rjmp	.+166    	; 0xe66 <_ZN13Character_LCD6NumberEhmh+0x134>
-            i = _AS_GetBitStatus(v_number_u32,(v_numOfDigits-1));
-            SendChar(_AS_Dec2Ascii(i));
-            v_numOfDigits--;
-        }    
-    }     
-    else if(v_number_u32==0)
      dc0:	c1 14       	cp	r12, r1
      dc2:	d1 04       	cpc	r13, r1
      dc4:	e1 04       	cpc	r14, r1
      dc6:	f1 04       	cpc	r15, r1
      dc8:	19 f0       	breq	.+6      	; 0xdd0 <_ZN13Character_LCD6NumberEhmh+0x9e>
-        for(i=0;((i<v_numOfDigits) && (i<10u)) ;i++)
-            SendChar('0');
-    }
-    else
-    {
-        for(i=0;i<v_numOfDigits;i++)
      dca:	01 11       	cpse	r16, r1
      dcc:	11 c0       	rjmp	.+34     	; 0xdf0 <_ZN13Character_LCD6NumberEhmh+0xbe>
      dce:	4b c0       	rjmp	.+150    	; 0xe66 <_ZN13Character_LCD6NumberEhmh+0x134>
-        }    
-    }     
-    else if(v_number_u32==0)
-    {
-        /* If the number is zero then update the array with the same for transmitting */
-        for(i=0;((i<v_numOfDigits) && (i<10u)) ;i++)
      dd0:	00 23       	and	r16, r16
      dd2:	09 f4       	brne	.+2      	; 0xdd6 <_ZN13Character_LCD6NumberEhmh+0xa4>
      dd4:	48 c0       	rjmp	.+144    	; 0xe66 <_ZN13Character_LCD6NumberEhmh+0x134>
@@ -1853,16 +1815,9 @@ void Character_LCD :: Number(uint8_t v_numericSystem_u8, uint32_t v_number_u32, 
      dda:	1a 30       	cpi	r17, 0x0A	; 10
      ddc:	09 f4       	brne	.+2      	; 0xde0 <_ZN13Character_LCD6NumberEhmh+0xae>
      dde:	43 c0       	rjmp	.+134    	; 0xe66 <_ZN13Character_LCD6NumberEhmh+0x134>
-            SendChar('0');
      de0:	60 e3       	ldi	r22, 0x30	; 48
      de2:	c5 01       	movw	r24, r10
      de4:	0e 94 1c 01 	call	0x238	; 0x238 <_ZN13Character_LCD8SendCharEh>
-        }    
-    }     
-    else if(v_number_u32==0)
-    {
-        /* If the number is zero then update the array with the same for transmitting */
-        for(i=0;((i<v_numOfDigits) && (i<10u)) ;i++)
      de8:	1f 5f       	subi	r17, 0xFF	; 255
      dea:	01 13       	cpse	r16, r17
      dec:	f6 cf       	rjmp	.-20     	; 0xdda <_ZN13Character_LCD6NumberEhmh+0xa8>
@@ -1871,39 +1826,16 @@ void Character_LCD :: Number(uint8_t v_numericSystem_u8, uint32_t v_number_u32, 
      df2:	2f 5f       	subi	r18, 0xFF	; 255
      df4:	3f 4f       	sbci	r19, 0xFF	; 255
      df6:	49 01       	movw	r8, r18
-            SendChar('0');
-    }
-    else
-    {
-        for(i=0;i<v_numOfDigits;i++)
      df8:	10 e0       	ldi	r17, 0x00	; 0
-                First get the remainder and divide the number by 10 each time.
-
-                example for Decimal number:
-                If v_number_u32 = 123 then extracted remainder will be 3 and number will be 12.
-                The process continues till it becomes zero or max digits reached*/
-                a[i]=_AS_GetMod32(v_number_u32,v_numericSystem_u8);
      dfa:	26 2e       	mov	r2, r22
      dfc:	31 2c       	mov	r3, r1
      dfe:	41 2c       	mov	r4, r1
      e00:	51 2c       	mov	r5, r1
-    {
-        for(i=0;i<v_numOfDigits;i++)
-        {
-            /* Continue extracting the digits from right side
-               till the Specified v_numOfDigitsToTransmit_u8 */
-            if(v_number_u32!=0)
      e02:	c1 14       	cp	r12, r1
      e04:	d1 04       	cpc	r13, r1
      e06:	e1 04       	cpc	r14, r1
      e08:	f1 04       	cpc	r15, r1
      e0a:	89 f0       	breq	.+34     	; 0xe2e <_ZN13Character_LCD6NumberEhmh+0xfc>
-                First get the remainder and divide the number by 10 each time.
-
-                example for Decimal number:
-                If v_number_u32 = 123 then extracted remainder will be 3 and number will be 12.
-                The process continues till it becomes zero or max digits reached*/
-                a[i]=_AS_GetMod32(v_number_u32,v_numericSystem_u8);
      e0c:	7c 2c       	mov	r7, r12
      e0e:	c7 01       	movw	r24, r14
      e10:	b6 01       	movw	r22, r12
@@ -1920,47 +1852,20 @@ void Character_LCD :: Number(uint8_t v_numericSystem_u8, uint32_t v_number_u32, 
      e28:	f4 01       	movw	r30, r8
      e2a:	70 82       	st	Z, r7
      e2c:	08 c0       	rjmp	.+16     	; 0xe3e <_ZN13Character_LCD6NumberEhmh+0x10c>
-                v_number_u32=v_number_u32/v_numericSystem_u8;
-            }
-            else if( (v_numOfDigits == 0xffu) ||
      e2e:	0b 30       	cpi	r16, 0x0B	; 11
      e30:	20 f0       	brcs	.+8      	; 0xe3a <_ZN13Character_LCD6NumberEhmh+0x108>
-                Ex: v_number_u32 is 123 and user wants five digits then 00123 has to be transmitted */
-                a[i]=0;
-            }
-        }
-
-        while(i)
      e32:	11 23       	and	r17, r17
      e34:	c1 f0       	breq	.+48     	; 0xe66 <_ZN13Character_LCD6NumberEhmh+0x134>
      e36:	01 2f       	mov	r16, r17
      e38:	08 c0       	rjmp	.+16     	; 0xe4a <_ZN13Character_LCD6NumberEhmh+0x118>
-            else
-            {
-                /*In case user expects more digits to be transmitted than the actual digits in number,
-                  then update the remaining digits with zero.
-                Ex: v_number_u32 is 123 and user wants five digits then 00123 has to be transmitted */
-                a[i]=0;
      e3a:	f4 01       	movw	r30, r8
      e3c:	10 82       	st	Z, r1
-        for(i=0;((i<v_numOfDigits) && (i<10u)) ;i++)
-            SendChar('0');
-    }
-    else
-    {
-        for(i=0;i<v_numOfDigits;i++)
      e3e:	1f 5f       	subi	r17, 0xFF	; 255
      e40:	ff ef       	ldi	r31, 0xFF	; 255
      e42:	8f 1a       	sub	r8, r31
      e44:	9f 0a       	sbc	r9, r31
      e46:	01 13       	cpse	r16, r17
      e48:	dc cf       	rjmp	.-72     	; 0xe02 <_ZN13Character_LCD6NumberEhmh+0xd0>
-        }
-
-        while(i)
-        { 
-            /* Finally get the ascii values of the digits and transmit*/
-            SendChar(_AS_Hex2Ascii(a[i-1]));
      e4a:	fe 01       	movw	r30, r28
      e4c:	e0 0f       	add	r30, r16
      e4e:	f1 1d       	adc	r31, r1
@@ -1972,21 +1877,8 @@ void Character_LCD :: Number(uint8_t v_numericSystem_u8, uint32_t v_number_u32, 
      e5a:	60 5d       	subi	r22, 0xD0	; 208
      e5c:	c5 01       	movw	r24, r10
      e5e:	0e 94 1c 01 	call	0x238	; 0x238 <_ZN13Character_LCD8SendCharEh>
-            i--;
      e62:	01 50       	subi	r16, 0x01	; 1
-                Ex: v_number_u32 is 123 and user wants five digits then 00123 has to be transmitted */
-                a[i]=0;
-            }
-        }
-
-        while(i)
      e64:	91 f7       	brne	.-28     	; 0xe4a <_ZN13Character_LCD6NumberEhmh+0x118>
-            i--;
-        }
-    }
-
-
-}
      e66:	2a 96       	adiw	r28, 0x0a	; 10
      e68:	0f b6       	in	r0, 0x3f	; 63
      e6a:	f8 94       	cli
@@ -2014,9 +1906,6 @@ void Character_LCD :: Number(uint8_t v_numericSystem_u8, uint32_t v_number_u32, 
      e96:	08 95       	ret
 
 00000e98 <_ZN13Character_LCD11FloatNumberEf>:
-
-void Character_LCD :: FloatNumber(float v_floatNumber_f32)
-{
      e98:	8f 92       	push	r8
      e9a:	9f 92       	push	r9
      e9c:	af 92       	push	r10
@@ -2031,32 +1920,20 @@ void Character_LCD :: FloatNumber(float v_floatNumber_f32)
      eae:	ec 01       	movw	r28, r24
      eb0:	6a 01       	movw	r12, r20
      eb2:	7b 01       	movw	r14, r22
-      1.Type cast the number to int to get the integer part.
-	  2.transmit the extracted integer part followed by a decimal point(.).
-	  3.Later the integer part is made zero by subtracting with the extracted integer value.
-	  4.Finally the fractional part is multiplied by 100000 to support 6-digit precision */
-
-	v_tempNumber_u32 = (uint32_t) v_floatNumber_f32;
      eb4:	cb 01       	movw	r24, r22
      eb6:	ba 01       	movw	r22, r20
      eb8:	0e 94 f7 09 	call	0x13ee	; 0x13ee <__fixunssfsi>
      ebc:	4b 01       	movw	r8, r22
      ebe:	5c 01       	movw	r10, r24
-	Number(10u,v_tempNumber_u32,0xffu);
      ec0:	0f ef       	ldi	r16, 0xFF	; 255
      ec2:	9b 01       	movw	r18, r22
      ec4:	ac 01       	movw	r20, r24
      ec6:	6a e0       	ldi	r22, 0x0A	; 10
      ec8:	ce 01       	movw	r24, r28
      eca:	0e 94 99 06 	call	0xd32	; 0xd32 <_ZN13Character_LCD6NumberEhmh>
-
-	SendChar('.');
      ece:	6e e2       	ldi	r22, 0x2E	; 46
      ed0:	ce 01       	movw	r24, r28
      ed2:	0e 94 1c 01 	call	0x238	; 0x238 <_ZN13Character_LCD8SendCharEh>
-
-	v_floatNumber_f32 = v_floatNumber_f32 - v_tempNumber_u32;
-	v_tempNumber_u32 = v_floatNumber_f32 * 1000000;
      ed6:	c5 01       	movw	r24, r10
      ed8:	b4 01       	movw	r22, r8
      eda:	0e 94 26 0a 	call	0x144c	; 0x144c <__floatunsisf>
@@ -2070,14 +1947,12 @@ void Character_LCD :: FloatNumber(float v_floatNumber_f32)
      eee:	44 e7       	ldi	r20, 0x74	; 116
      ef0:	59 e4       	ldi	r21, 0x49	; 73
      ef2:	0e 94 b4 0a 	call	0x1568	; 0x1568 <__mulsf3>
-	Number(10u,v_tempNumber_u32,0xffu);
      ef6:	0e 94 f7 09 	call	0x13ee	; 0x13ee <__fixunssfsi>
      efa:	9b 01       	movw	r18, r22
      efc:	ac 01       	movw	r20, r24
      efe:	6a e0       	ldi	r22, 0x0A	; 10
      f00:	ce 01       	movw	r24, r28
      f02:	0e 94 99 06 	call	0xd32	; 0xd32 <_ZN13Character_LCD6NumberEhmh>
-}
      f06:	df 91       	pop	r29
      f08:	cf 91       	pop	r28
      f0a:	0f 91       	pop	r16
@@ -2136,7 +2011,6 @@ void Character_LCD :: Printf(const char *argList , uint8_t x, uint8_t y , ... )
      f58:	8a e1       	ldi	r24, 0x1A	; 26
      f5a:	a8 0e       	add	r10, r24
      f5c:	b1 1c       	adc	r11, r1
-
 	// Loop through the list to extract all the input arguments 
 	for(ptr = argList; *ptr != '\0'; ptr++)
      f5e:	d8 01       	movw	r26, r16
@@ -2577,10 +2451,10 @@ void Character_LCD :: Printf(const char *argList , uint8_t x, uint8_t y , ... )
     1136:	c7 01       	movw	r24, r14
     1138:	0e 94 1c 01 	call	0x238	; 0x238 <_ZN13Character_LCD8SendCharEh>
     113c:	68 01       	movw	r12, r16
+	
 
 
 	va_start(argp, argList);
-
 	// Loop through the list to extract all the input arguments 
 	for(ptr = argList; *ptr != '\0'; ptr++)
     113e:	86 01       	movw	r16, r12
